@@ -14,21 +14,32 @@
         color = "rgba(226, 92, 14, 0.699)";
     }
 </script>
-
-<div class= "row task-neomorph container text-center"  style="background-color:{color};">
-    <div style="width:25%;">
-        <slot name= "completeButton"> </slot>
-    </div>
-    <div style="width:50%;">
-        <p>{title}</p> <p>({day + month*30}day(s) left)</p>
-    </div>
-    <div style="width:25%;">
-        <slot name= "deleteButton"> </slot>
-    </div>
-    <br>
     
-</div>
-
+    <!-- {:else if title = ""} -->
+    <div class= "row task-neomorph container text-center"  style="background-color:{color};">
+        {#if title== "\ud83d\ude21" || title== "\ud83d\ude01"}
+            <div style= "width:100%">
+                <p style="font-size: 2rem;">{title}</p> 
+            </div>
+        {:else}
+        <div style="width:25%;">
+            <slot name= "completeButton"> </slot>
+        </div>
+        <div style="width:50%;">
+            <p>{title}</p> 
+            {#if day== 1 && month ==0}
+                <p>({day} day left)</p>
+            {:else}
+                <p>({day + month*30} days left)</p>
+            {/if}
+        </div>
+        <div style="width:25%;">
+            <slot name= "deleteButton"> </slot>
+        </div>
+        <br>
+        
+        {/if}
+    </div>
 <style>
     .task-neomorph{ 
         width:100%;

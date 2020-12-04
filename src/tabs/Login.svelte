@@ -63,7 +63,7 @@
         <button type="submit" class="btn btn-sm btn-neomorph" on:click={login}>
             Submit
         </button>
-    </form>
+    </form><br>
     <div id="error" style="color:firebrick;">
         <p id="emailError"> </p> 
         <p id="passwordError"> </p>

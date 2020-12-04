@@ -158,26 +158,39 @@
               {/if} 
 
               {#each taskList.slice(0,5) as task (task.id)}
+               <div>
                 <TaskInfo title= {task.title} deadline= {task.content}>
                   <span slot= "completeButton">
                     <i class="fas fa-check-circle" on:click={() => {  
+                        task.ref.update({
+                          title: "\ud83d\ude01"
+                        });
+                        window.setTimeout(function(){
                           task.ref.delete();
                           taskRef.update({ 
                             completedTask: firebase.firestore.FieldValue.increment(1)
                           });
+                        },500);
                         }}>
                     </i>
                   </span>
                   <span slot= "deleteButton">
                     <i class="fas fa-trash" on:click={() => {
-                          task.ref.delete();
-                          taskRef.update({ 
-                            deletedTask: firebase.firestore.FieldValue.increment(1)
-                          });
+                            task.ref.update({
+                              title: "\ud83d\ude21",
+                              content: ""
+                            });
+                            window.setTimeout(function(){
+                              task.ref.delete();
+                              taskRef.update({ 
+                              deletedTask: firebase.firestore.FieldValue.increment(1)
+                            });
+                            },500);
                         }}>
                     </i>
                   </span>
                 </TaskInfo>
+               </div>
                 <br>
               {/each}
             </div>
@@ -228,18 +241,17 @@
     position: fixed; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    /* overflow: auto; Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
   }
   .form{
     background-color: #eeebeb;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%; 
   }
   main{
     overflow-x:hidden;

@@ -1,13 +1,16 @@
 <script>
     import {createEventDispatcher} from 'svelte';
-    let title; 
-    let content;
+    let title; let titleOK = false;
+    let content; let contentOK = false;
     const dispatch = createEventDispatcher();
 
     const dispatchAddTaskToParent= (title, content)=>{
-        // console.log(title); console.log(content);
-        dispatch('addTask', {title: title,content: content});
-        document.getElementById("taskForm").reset();
+        validate();
+        if( titleOK && contentOK){
+            dispatch('addTask', {title: title,content: content});
+            document.getElementById("taskForm").reset();
+            document.getElementById("error").innerHTML="";
+        }
     };
     const dispatchCloseModal = () => {
         dispatch( 'closeModal');
@@ -16,23 +19,30 @@
         var task = document.forms["taskForm"]["task"].value;
         var date = document.forms["taskForm"]["date"].value;
         if(task == ""){
+            titleOK = false;
             document.getElementById("taskError").innerHTML="no task? you sure?";
         } 
         else{
+            titleOK = true;
             document.getElementById("taskError").innerHTML="";
         }
         if(date == ""){
+            contentOK = false;
             document.getElementById("dateError").innerHTML="NO DEADLINE? "
         }
         else{
+            contentOK = true;
             document.getElementById("dateError").innerHTML="";
         }
     };
+    
     document.addEventListener("DOMContentLoaded",function(){
     form.addEventListener('keyup',
     function(event){
-        event.preventDefault();
-        validate();
+        if(event.key == 13){
+            event.preventDefault();
+            dispatchAddTaskToParent();
+        }
     });
     });
 </script>
@@ -43,7 +53,7 @@
         <div style="width:25%;"> <i class="fas fa-times-circle" on:click={dispatchCloseModal}></i> </div>
     </div>
     <hr>
-    <form  name="taskForm" class= "form-field" on:submit|preventDefault="{validate}"  id="taskForm">
+    <form  name="taskForm" class= "form-field" on:submit|preventDefault="{dispatchAddTaskToParent}"  id="taskForm">
         <input name="task" class = "form-neomorph"  type="text" placeholder="Task title" bind:value={title}><br>
         <input name="date" class = "form-neomorph"  type="date" placeholder="Task deadline" bind:value={content} ><br>
         <button type="submit" class="btn btn-sm btn-neomorph" on:click={()=> dispatchAddTaskToParent(title, content)}> Add Task</button>
@@ -53,6 +63,7 @@
         <p id="dateError"> </p>
     </div>
 </div>
+
 <style>
     .form-neomorph{
         background-color: #eeebeb;
