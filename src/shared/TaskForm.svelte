@@ -5,12 +5,10 @@
     const dispatch = createEventDispatcher();
 
     const dispatchAddTaskToParent= (title, content)=>{
-        validate();
-        if( titleOK && contentOK){
-            dispatch('addTask', {title: title,content: content});
-            document.getElementById("taskForm").reset();
-            document.getElementById("error").innerHTML="";
-        }
+        document.getElementById("taskError").innerHTML="";
+        document.getElementById("dateError").innerHTML="";
+        dispatch('addTask', {title: title,content: content});
+        document.getElementById("taskForm").reset();
     };
     const dispatchCloseModal = () => {
         dispatch( 'closeModal');
@@ -34,6 +32,9 @@
             contentOK = true;
             document.getElementById("dateError").innerHTML="";
         }
+        if(titleOK && contentOK){
+            dispatchAddTaskToParent(task,date);
+        }
     };
     
     document.addEventListener("DOMContentLoaded",function(){
@@ -41,7 +42,7 @@
     function(event){
         if(event.key == 13){
             event.preventDefault();
-            dispatchAddTaskToParent();
+            validate();
         }
     });
     });
@@ -53,10 +54,10 @@
         <div style="width:25%;"> <i class="fas fa-times-circle" on:click={dispatchCloseModal}></i> </div>
     </div>
     <hr>
-    <form  name="taskForm" class= "form-field" on:submit|preventDefault="{dispatchAddTaskToParent}"  id="taskForm">
+    <form  name="taskForm" class= "form-field" on:submit|preventDefault  id="taskForm">
         <input name="task" class = "form-neomorph"  type="text" placeholder="Task title" bind:value={title}><br>
         <input name="date" class = "form-neomorph"  type="date" placeholder="Task deadline" bind:value={content} ><br>
-        <button type="submit" class="btn btn-sm btn-neomorph" on:click={()=> dispatchAddTaskToParent(title, content)}> Add Task</button>
+        <button type="submit" class="btn btn-sm btn-neomorph" on:click={()=> validate()}> Add Task</button>
     </form>
     <div id="error" style="color:firebrick;">
         <p id="taskError"> </p> 

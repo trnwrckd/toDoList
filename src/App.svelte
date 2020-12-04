@@ -154,7 +154,11 @@
                   <p class="text-warning"> Add a task first..</p>
                 {/if}
               {:else if taskList.length > 5}
-                <p class="text-danger"> You have {taskList.length - 5} more task(s). Complete some of these to see more</p>
+                {#if (taskList.length) - 5 >1}
+                <p class="text-danger"> You have {taskList.length - 5} more tasks. Complete some of these to see more</p>
+                {:else}
+                <p class="text-danger"> You have {taskList.length - 5} more task. Complete some of these to see more</p>
+                {/if}
               {/if} 
 
               {#each taskList.slice(0,5) as task (task.id)}
