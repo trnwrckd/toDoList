@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=VT323&display=swap');
+
+:root{
+    --box-shadow : 
+        8px 0px 4px 0 rgba(0, 0, 0, 0.25),
+        -5px 0px 4px 0 #ffffff;
+    --bg-col: rgb(226, 226, 226);
+}
+
+html{
+    background-color: var(--bg-col);
+    font-family: 'Nunito Sans', sans-serif;
+    /* font-family: 'VT323', monospace; */
+}
+main {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-col);
+}
+
+.form-field{
+    border: none;
+    text-align: center;
+    font-weight: 500;
+    background-color: #eeebeb;
+    box-shadow: var(--box-shadow);
+    border-radius: 50px;
+    padding: 8px 10px ;
+    margin-bottom: 15px;
+}
+.form-field:focus{
+    background-color: rgb(255, 255, 255);
+    outline: none;
+}
+.btn-neomorph{
+    background-color: #eeebeb;
+    border: none;
+    font-weight: 500;
+    margin: 15px 15px;
+    padding: 8px 20px;
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+    transition: all .5s;
+}
+.btn-neomorph:focus{
+    color:#5f0028;
+    outline: none;
+}
+.btn-neomorph:hover{
+    background-color: white; 
+    box-shadow: none;
+}
