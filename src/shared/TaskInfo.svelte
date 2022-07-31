@@ -18,21 +18,21 @@
 <div
   class="container text-center d-flex justify-content-center align-items-center"
 >
-  <div class="task-neomorph w-50" style="background-color:{color};">
+  <div class="task-neomorph" style="background-color:{color};">
     {#if title == "\ud83d\ude21" || title == "\ud83d\ude01"}
-      <div style="width:100%">
+      <div>
         <p style="font-size: 2rem;">{title}</p>
       </div>
     {:else}
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="fs-3">
+      <div class="task-item">
+        <div class="fs-4">
           <slot name="completeButton" />
         </div>
         <div
           class="d-flex flex-column flex-lg-row  justify-content-evenly align-items-center fs-4"
         >
-          <p class="mb-0">{title}</p>
-          <div class="ms-3">
+          <p class="mb-0 px-3">{title}</p>
+          <div class="deadline">
             {#if day == 1 && month == 0}
               <p class="mb-0">({day} day left)</p>
             {:else}
@@ -40,7 +40,7 @@
             {/if}
           </div>
         </div>
-        <div class="fs-3">
+        <div class="fs-4">
           <slot name="deleteButton" />
         </div>
       </div>
@@ -56,5 +56,19 @@
     border-radius: 25px;
     box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25),
       -8px -8px 8px 0 rgba(255, 255, 255, 0.082);
+  }
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+  }
+  .deadline {
+    margin: 0 0.5rem;
+  }
+  @media only screen and (max-widht: 692px) {
+    .deadline {
+      margin: 0;
+    }
   }
 </style>

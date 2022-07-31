@@ -56,7 +56,7 @@
 
 <div>
   <form on:submit|preventDefault={login} name="login" id="loginform">
-    <h4>Login</h4>
+    <h2>Login</h2>
     <br />
     <input
       name="email"

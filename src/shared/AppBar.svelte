@@ -1,5 +1,5 @@
 <div class="AppBar">
-  <h1>ToDoList</h1>
+  <h1 class="fw-bold">ToDoList</h1>
 
   <div class="btnSlot">
     <slot name="addTaskButton" />

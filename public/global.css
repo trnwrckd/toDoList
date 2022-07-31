@@ -28,7 +28,7 @@ main {
     background-color: #eeebeb;
     box-shadow: var(--box-shadow);
     border-radius: 50px;
-    padding: 8px 10px ;
+    padding: 8px 10px;
     margin-bottom: 15px;
 }
 .form-field:focus{
@@ -36,7 +36,7 @@ main {
     outline: none;
 }
 .btn-neomorph{
-    background-color: #eeebeb;
+    background: #eeebeb;
     border: none;
     font-weight: 500;
     margin: 15px 15px;
@@ -45,11 +45,38 @@ main {
     border-radius: 20px;
     transition: all .5s;
 }
+.btn-round{
+    padding: .4em .5em;
+    text-align: center;
+    border-radius: 50%;
+    transition: all .5s;
+}
+.btn-round:hover{
+    color: rgb(77, 13, 34);
+    background: white;
+}
 .btn-neomorph:focus{
     color:#5f0028;
     outline: none;
 }
 .btn-neomorph:hover{
-    background-color: white; 
-    box-shadow: none;
+    background-color: #dfdfdf;
+}
+.fas.fa-times-circle:hover {
+    color: crimson;
+    cursor: pointer;
+}
+.loader{
+    height: 10rem;
+    width: 10rem;
+    margin: 10rem;
+}
+h5{
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width : 692px){
+    .form-field{
+        width: 80%;
+    }
 }

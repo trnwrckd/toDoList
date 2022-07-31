@@ -20,14 +20,15 @@
     var date = document.forms["taskForm"]["date"].value;
     if (task == "") {
       titleOK = false;
-      document.getElementById("taskError").innerHTML = "no task? you sure?";
+      document.getElementById("taskError").innerHTML = "No task? you sure?";
     } else {
       titleOK = true;
       document.getElementById("taskError").innerHTML = "";
     }
     if (date == "") {
       contentOK = false;
-      document.getElementById("dateError").innerHTML = "NO DEADLINE? ";
+      document.getElementById("dateError").innerHTML =
+        "NO DEADLINE? You must be joking.";
     } else {
       contentOK = true;
       document.getElementById("dateError").innerHTML = "";
@@ -48,9 +49,9 @@
 </script>
 
 <div class="text-center">
-  <div class="row" style="width:100%;">
-    <div style="width:75%;"><h4>Add a task..</h4></div>
-    <div style="width:25%;">
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="fw-bold text-center">Add a Task</h4>
+    <div class="close-btn">
       <i class="fas fa-times-circle" on:click={dispatchCloseModal} />
     </div>
   </div>

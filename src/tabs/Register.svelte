@@ -63,7 +63,7 @@
     name="register"
     id="registrationForm"
   >
-    <h4>Register</h4>
+    <h2>Register</h2>
     <br />
     <input
       name="email"

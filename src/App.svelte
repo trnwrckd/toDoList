@@ -1,26 +1,11 @@
 <!-- Neumorph* :|  -->
 <script>
-  // SvelteFire Setup
+  // import
   import firebase from "firebase/app";
   import { FirebaseApp, User, Doc, Collection, userStore } from "sveltefire";
   import "firebase/firestore";
   import "firebase/auth";
   import "firebase/performance";
-  import "firebase/analytics";
-  let firebaseConfig = {
-    apiKey: "AIzaSyDIbTLX-_jeNvd_WkOwbfcfpuMKLNTWKww",
-    authDomain: "coffee-cuop.firebaseapp.com",
-    databaseURL: "https://coffee-cuop.firebaseio.com",
-    projectId: "coffee-cuop",
-    storageBucket: "coffee-cuop.appspot.com",
-    messagingSenderId: "229914810743",
-    appId: "1:229914810743:web:e16cbd3f127c440cc32972",
-  };
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-
-  // import
   import Register from "./tabs/Register.svelte";
   import Login from "./tabs/Login.svelte";
   import TaskForm from "./shared/TaskForm.svelte";
@@ -64,14 +49,14 @@
         <AppBar>
           <span slot="logOutButton">
             <button
-              class="btn btn-sm btn-neomorph"
+              class="btn-round btn-neomorph"
               on:click={() => auth.signOut()}
-              ><i class="fas fa-sign-out-alt" />
+              ><h5><i class="fas fa-sign-out-alt" /></h5>
             </button>
           </span>
           <span slot="statsButton">
-            <button class="btn btn-sm btn-neomorph" on:click={showStats}>
-              <i class="fas fa-chart-pie" /></button
+            <button class="btn-round btn-neomorph" on:click={showStats}>
+              <h5><i class="fas fa-chart-pie" /></h5></button
             >
           </span>
         </AppBar>
@@ -80,7 +65,7 @@
       <!-- notSignedIn -->
       <div slot="signed-out" class="text-center">
         <div class="">
-          <h1 class="pt-3">ToDoList</h1>
+          <h1 class="pt-3 fw-bold">ToDoList</h1>
           <div>
             <button
               id="reg"
@@ -96,7 +81,6 @@
             >
           </div>
         </div>
-        <hr />
         {#if activeTab === "register"}
           <Register />
         {:else if activeTab === "login"}
@@ -106,20 +90,24 @@
 
       <!-- Document -->
       <Doc path={`ToDoList/${user.uid}`} let:data={task} let:ref={taskRef} log>
-        <div slot="loading" style="padding-top:5rem;">
-          <div class="container text-center" style="height:5rem; width:5rem;">
+        <!-- loader -->
+        <div slot="loading" class="loader my-5 py-5">
+          <div class="container text-center">
             <i class="fas fa-spinner fa-pulse fa-5x" />
           </div>
         </div>
 
-        <div class="container text-center py-5" slot="fallback">
+        <!-- intro -->
+        <div class="container text-center py-5 fs-4" slot="fallback">
           <p>
             Welcome to your ToDoList.<br />
-            Add your tasks. Their deadlines will be prioritized<br /> through
-            colors, And you'll know which ones you should take care of first.
-            <br /> I recommend getting things done, so if you <br />
-            add more than 5 tasks, they won't be shown to you unless <br />you
-            complete some of the tasks that you have piled.
+            Add your tasks. Their deadlines will be prioritized through colors,
+            <br />
+            And you'll know which ones you should take care of first. <br /> I
+            recommend getting things done, so if you add more than 5 tasks,
+            <br />
+            they won't be shown to you unless you complete some of the tasks that
+            you have piled.
           </p>
           <button
             class="btn-neomorph"
@@ -138,17 +126,17 @@
         <!-- statsModal -->
         <div class="formModal text-center" id="statsModal">
           <div class="form">
-            <div class="row" style="width:100%;">
-              <div style="width: 75%;"><h4>Stats</h4></div>
-              <div style="width: 25%;">
+            <div class="d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold text-center">Stats</h4>
+              <div class="close-btn">
                 <i class="fas fa-times-circle" on:click={showStats} />
               </div>
             </div>
             <hr />
             <div>
-              <p>Total Tasks created: {task.totalTask}</p>
-              <p>Total Tasks completed: {task.completedTask}</p>
-              <p>Total Tasks deleted: {task.deletedTask}</p>
+              <h4>Total Tasks created: {task.totalTask}</h4>
+              <h4>Total Tasks completed: {task.completedTask}</h4>
+              <h4>Total Tasks deleted: {task.deletedTask}</h4>
             </div>
           </div>
         </div>
@@ -161,7 +149,7 @@
           query={(ref) => ref.orderBy("createdAt")}
           log
         >
-          <div slot="loading">
+          <div slot="loading" class="loader my-5 py-5">
             <div class="container text-center">
               <i class="fas fa-spinner fa-pulse fa-5x" />
             </div>
@@ -170,11 +158,14 @@
           <div class="row pt-3 mt-0">
             <div class="container text-center">
               <h4>
-                Tasks <button
+                <span class="fw-bold">Tasks</span>
+                <button
                   id="formButton"
-                  class=" btn btn-sm btn-neomorph"
-                  on:click={showModal}><i class="fas fa-plus" /></button
+                  class="btn-round btn-neomorph"
+                  on:click={showModal}
                 >
+                  <i class="fas fa-plus" />
+                </button>
               </h4>
               {#if taskList.length == 0}
                 {#if task.totalTask > 0}
@@ -186,12 +177,12 @@
                 {#if taskList.length - 5 > 1}
                   <p class="text-danger">
                     You have {taskList.length - 5} more tasks. Complete some of these
-                    to see more
+                    to see more.
                   </p>
                 {:else}
                   <p class="text-danger">
                     You have {taskList.length - 5} more task. Complete some of these
-                    to see more
+                    to see more.
                   </p>
                 {/if}
               {/if}
@@ -199,7 +190,7 @@
               {#each taskList.slice(0, 5) as task (task.id)}
                 <div>
                   <TaskInfo title={task.title} deadline={task.content}>
-                    <span slot="completeButton">
+                    <span slot="completeButton" class="btn-complete">
                       <i
                         class="fas fa-check-circle"
                         on:click={() => {
@@ -216,7 +207,7 @@
                         }}
                       />
                     </span>
-                    <span slot="deleteButton">
+                    <span slot="deleteButton" class="btn-delete">
                       <i
                         class="fas fa-trash"
                         on:click={() => {
@@ -248,6 +239,7 @@
               </div>
             {/if}
 
+            <!-- add task -->
             <div id="formModal" class="formModal">
               <div class="form" data-keyboard="false" data-backdrop="static">
                 <TaskForm
@@ -296,7 +288,22 @@
     border-radius: 25px;
     box-shadow: var(--box-shadow);
     width: 50%;
-    height: 75%;
     z-index: 1;
+  }
+  .btn-complete,
+  .btn-delete {
+    cursor: pointer;
+  }
+  .btn-complete:hover {
+    color: rgb(184, 255, 184);
+  }
+  .btn-delete:hover {
+    color: rgb(255, 184, 184);
+  }
+
+  @media only screen and (max-width: 692px) {
+    .form {
+      width: 80%;
+    }
   }
 </style>

@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 public/build
-.firebase
+
 .firebaserc
-.firebase.json
+firebase-config.js
+firestore.rules
+firestore.indexes.json
